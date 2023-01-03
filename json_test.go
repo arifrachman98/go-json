@@ -6,6 +6,14 @@ import (
 	"testing"
 )
 
+type Customer struct {
+	FName   string
+	MName   string
+	LName   string
+	Age     int
+	Married bool
+}
+
 func errHandler(err error) {
 	if err != nil {
 		panic(err)
@@ -24,4 +32,19 @@ func TestEndcode(t *testing.T) {
 	logJSON(1)
 	logJSON(true)
 	logJSON([]string{"Arif", "Rachman", "Hakim"})
+}
+
+func TestJSONObj(t *testing.T) {
+	cust := Customer{
+		FName:   "Arif",
+		MName:   "Rachman",
+		LName:   "Hakim",
+		Age:     24,
+		Married: false,
+	}
+
+	bytes, err := json.Marshal(cust)
+	errHandler(err)
+	fmt.Println(string(bytes))
+
 }
