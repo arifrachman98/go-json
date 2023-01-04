@@ -3,6 +3,7 @@ package gojson
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"testing"
 )
 
@@ -297,4 +298,14 @@ func TestMapDecode(t *testing.T) {
 	fmt.Println(res["id"])
 	fmt.Println(res["name"])
 	fmt.Println(res["price"])
+}
+
+func TestStreamDecoder(t *testing.T) {
+	reader, _:= os.Open("Customer.json")
+	decoder := json.NewDecoder(reader)
+
+	cust := &Customer{}
+	decoder.Decode(cust)
+
+	fmt.Println(cust)
 }
