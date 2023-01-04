@@ -1,0 +1,23 @@
+{
+    "FName":"Donny",
+    "MName":"Romy",
+    "LName":"Romdani",
+    "Age":35,
+    "Married":true,
+    "Hobbies":[
+        "Travelling",
+        "Eat some food",
+        "Race"
+    ],
+    "Addresses":[
+        {
+            "Street":"Jl. Magnolia Barat Daya",
+            "Country":"Indonesia",
+            "PostalCode":"11146"
+        },{
+            "Street":"Jl. Setia Menemani",
+            "Country":"Indonesia",
+            "PostalCode":"546988"
+        }
+    ]
+}
