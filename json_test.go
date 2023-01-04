@@ -300,6 +300,33 @@ func TestMapDecode(t *testing.T) {
 	fmt.Println(res["price"])
 }
 
+func TestStreamEncode(t *testing.T) {
+	w, _ := os.Create("New_customer.json")
+	encode := json.NewEncoder(w)
+
+	cust := Customer{
+		FName: "Donny",
+		MName: "Romy",
+		LName: "Romdani",
+		Age: 35,
+		Married: true,
+		Hobbies: []string{"Travelling","Eat some food","Race"},
+		Addresses: []Address{
+			{
+				Street: "Jl. Magnolia Barat Daya",
+				Country: "Indonesia",
+				PostalCode: "11146",
+			},{
+				Street: "Jl. Setia Menemani",
+				Country: "Indonesia",
+				PostalCode: "546988",
+			},
+		},
+	}
+
+	encode.Encode(cust)
+}
+
 func TestStreamDecoder(t *testing.T) {
 	reader, _:= os.Open("Customer.json")
 	decoder := json.NewDecoder(reader)
