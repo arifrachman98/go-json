@@ -166,7 +166,20 @@ func TestJSONArrayComplexDecode(t *testing.T) {
 		"Age" : 24,
 		"Married" : false,
 		"Hobbies" : ["Gem","Makan","Code"],
-		"Addresses" : [{"Street" : "Jalanan","Country" : "Lomestry","PostalCode" : "44697"},{"Street" : "Jalanan yang jauh","Country" : "Panama","PostalCode" : "569778"},{"Street" : "Jalanan yang rusak","Country" : "Armedia","PostalCode" : "5489486"}]
+		"Addresses" : [
+			{
+				"Street" : "Jalanan",
+				"Country" : "Lomestry",
+				"PostalCode" : "44697"
+			},{
+				"Street" : "Jalanan yang jauh",
+				"Country" : "Panama",
+				"PostalCode" : "569778"
+			},{
+				"Street" : "Jalanan yang rusak",
+				"Country" : "Armedia",
+				"PostalCode" : "5489486"
+			}]
 	}`
 	JSONbytes := []byte(JSONstring)
 
@@ -205,7 +218,19 @@ func TestJSONOnlyArrayComplexEncode(t *testing.T) {
 }
 
 func TestJSONOnlyArrayComplexDecode(t *testing.T) {
-	JSONstring := `[{"Street" : "Jalanan","Country" : "Lomestry","PostalCode" : "44697"},{"Street" : "Jalanan yang jauh","Country" : "Panama","PostalCode" : "569778"},{"Street" : "Jalanan yang rusak","Country" : "Armedia","PostalCode" : "5489486"}]`
+	JSONstring := `[{
+		"Street" : "Jalanan",
+		"Country" : "Lomestry",
+		"PostalCode" : "44697"
+	},{
+		"Street" : "Jalanan yang jauh",
+		"Country" : "Panama",
+		"PostalCode" : "569778"
+	},{
+		"Street" : "Jalanan yang rusak",
+		"Country" : "Armedia",
+		"PostalCode" : "5489486"
+	}]`
 	JSONbytes := []byte(JSONstring)
 
 	addr := &[]Address{}
@@ -228,7 +253,11 @@ func TestJSONtagEncode(t *testing.T) {
 }
 
 func TestJSONtagDecode(t *testing.T) {
-	JSONstring := `{"id" : "D0001",	"name" : "Laptop buah",	"url" : "www.lingdua2.com"}`
+	JSONstring := `{
+		"id" : "D0001",	
+		"name" : "Laptop buah",	
+		"url" : "www.lingdua2.com"
+	}`
 	JSONbyte := []byte(JSONstring)
 
 	prod := &Product{}
@@ -238,4 +267,34 @@ func TestJSONtagDecode(t *testing.T) {
 	fmt.Println(string(prod.Id))
 	fmt.Println(string(prod.Name))
 	fmt.Println(string(prod.ImageURL))
+}
+
+func TestMapEncode(t *testing.T) {
+	prod := map[string]interface{}{
+		"id":    "K0001",
+		"name":  "MetaVersion 1.1.0",
+		"price": 10000000,
+	}
+
+	bytes, err := json.Marshal(prod)
+	errHandler(err)
+	fmt.Println(string(bytes))
+}
+
+func TestMapDecode(t *testing.T) {
+	JSONstring := `{
+		"id" : "L0001",
+		"name" : "Hape Terlalu Geming",
+		"price" : "7000000"
+	}`
+	JSONbytes := []byte(JSONstring)
+
+	var res map[string]interface{}
+	err := json.Unmarshal(JSONbytes, &res)
+	errHandler(err)
+
+	fmt.Println(res)
+	fmt.Println(res["id"])
+	fmt.Println(res["name"])
+	fmt.Println(res["price"])
 }
