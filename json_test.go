@@ -22,6 +22,12 @@ type Customer struct {
 	Addresses []Address
 }
 
+type Product struct {
+	Id       string `json:"id"`
+	Name     string `json:"name"`
+	ImageURL string `json:"url"`
+}
+
 func errHandler(err error) {
 	if err != nil {
 		panic(err)
@@ -207,4 +213,29 @@ func TestJSONOnlyArrayComplexDecode(t *testing.T) {
 	errHandler(err)
 
 	fmt.Println(addr)
+}
+
+func TestJSONtagEncode(t *testing.T) {
+	prod := Product{
+		Id:       "P0001",
+		Name:     "Laptop Gimang",
+		ImageURL: "http://loremipsum.com",
+	}
+
+	bytes, err := json.Marshal(prod)
+	errHandler(err)
+	fmt.Println(string(bytes))
+}
+
+func TestJSONtagDecode(t *testing.T) {
+	JSONstring := `{"id" : "D0001",	"name" : "Laptop buah",	"url" : "www.lingdua2.com"}`
+	JSONbyte := []byte(JSONstring)
+
+	prod := &Product{}
+	err := json.Unmarshal(JSONbyte, prod)
+	errHandler(err)
+
+	fmt.Println(string(prod.Id))
+	fmt.Println(string(prod.Name))
+	fmt.Println(string(prod.ImageURL))
 }
